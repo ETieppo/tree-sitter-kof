@@ -1,0 +1,49 @@
+# Rust
+target/
+Cargo.lock
+
+# Node
+node_modules/
+*.tgz
+
+# Swift
+.build/
+Package.resolved
+
+# Go
+go.sum
+
+# Python
+__pycache__/
+*.egg-info/
+.venv/
+dist/
+*.whl
+_obj/
+
+# C
+build/
+*.o
+*.obj
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.lib
+*.exp
+*.pc
+
+# Zig
+.zig-cache/
+zig-cache/
+zig-out/
+
+# Grammar / WASM
+*.wasm
+log.html
+
+# other
+.DS_Store
+.idea/
+.vscode/

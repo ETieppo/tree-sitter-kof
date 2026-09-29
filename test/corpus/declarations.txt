@@ -1,0 +1,289 @@
+================================================================================
+Type-first and annotated variable types
+================================================================================
+
+main() {
+  String nome = "Mel"
+  var idade: Int? = findAge()
+  List<String> tags = listOf()
+  var arr: Int[] = new Int[3]
+  var f: (Int) -> Int = (x: Int) -> x * 2
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (main_declaration
+    (identifier)
+    (formal_parameters)
+    (block
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (string_literal
+          (string_fragment)))
+      (variable_declaration
+        (identifier)
+        (nullable_type
+          (type_identifier))
+        (call_expression
+          (identifier)
+          (argument_list)))
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_identifier)))
+        (identifier)
+        (call_expression
+          (identifier)
+          (argument_list)))
+      (variable_declaration
+        (identifier)
+        (array_type
+          (type_identifier))
+        (array_creation_expression
+          (type_identifier)
+          (integer_literal)))
+      (variable_declaration
+        (identifier)
+        (function_type
+          (type_identifier)
+          (type_identifier))
+        (lambda_expression
+          (lambda_parameters
+            (lambda_parameter
+              (identifier)
+              (type_identifier)))
+          (binary_expression
+            (identifier)
+            (integer_literal)))))))
+
+================================================================================
+Sealed contextual modifier
+================================================================================
+
+sealed interface Shape { Double area() }
+public sealed class A {}
+sealed record R(Int x)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (interface_declaration
+    (sealed)
+    (identifier)
+    (class_body
+      (method_declaration
+        (type_identifier)
+        (identifier)
+        (formal_parameters))))
+  (class_declaration
+    (modifiers)
+    (sealed)
+    (identifier)
+    (class_body))
+  (record_declaration
+    (sealed)
+    (identifier)
+    (formal_parameters
+      (parameter
+        (type_identifier)
+        (identifier)))))
+
+================================================================================
+Sealed is still an identifier
+================================================================================
+
+main() {
+  var sealed = 1
+  println(sealed)
+  obj.sealed()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (main_declaration
+    (identifier)
+    (formal_parameters)
+    (block
+      (variable_declaration
+        (identifier)
+        (integer_literal))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (identifier))))
+      (expression_statement
+        (call_expression
+          (field_access
+            (identifier)
+            (identifier))
+          (argument_list))))))
+
+================================================================================
+Class with constructor and fields
+================================================================================
+
+class User {
+  String name
+  public constructor(String name) {
+    this.name = name
+  }
+  String greeting() { return "Hello " + name }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_declaration
+    (identifier)
+    (class_body
+      (field_declaration
+        (type_identifier)
+        (identifier))
+      (constructor_declaration
+        (modifiers)
+        (formal_parameters
+          (parameter
+            (type_identifier)
+            (identifier)))
+        (block
+          (expression_statement
+            (assignment_expression
+              (field_access
+                (this)
+                (identifier))
+              (identifier)))))
+      (method_declaration
+        (type_identifier)
+        (identifier)
+        (formal_parameters)
+        (block
+          (return_statement
+            (binary_expression
+              (string_literal
+                (string_fragment))
+              (identifier))))))))
+
+================================================================================
+Enum and entity
+================================================================================
+
+enum Color { Red, Blue }
+entity Person {
+  id: Long generated
+  email: String unique
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (enum_declaration
+    (identifier)
+    (enum_body
+      (enum_constant)
+      (enum_constant)))
+  (entity_declaration
+    (identifier)
+    (entity_body
+      (entity_field
+        (identifier)
+        (type_identifier))
+      (entity_field
+        (identifier)
+        (type_identifier)))))
+
+================================================================================
+Function return forms
+================================================================================
+
+Int a() { return 1 }
+b(): String { return "x" }
+c() { }
+Bool d(Int x) = x > 0
+extern "libm.so.6" cos(Double x): Double
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    (type_identifier)
+    (identifier)
+    (formal_parameters)
+    (block
+      (return_statement
+        (integer_literal))))
+  (function_declaration
+    (identifier)
+    (formal_parameters)
+    (type_identifier)
+    (block
+      (return_statement
+        (string_literal
+          (string_fragment)))))
+  (function_declaration
+    (identifier)
+    (formal_parameters)
+    (block))
+  (function_declaration
+    (type_identifier)
+    (identifier)
+    (formal_parameters
+      (parameter
+        (type_identifier)
+        (identifier)))
+    (binary_expression
+      (identifier)
+      (integer_literal)))
+  (extern_declaration
+    (string_literal
+      (string_fragment))
+    (identifier)
+    (formal_parameters
+      (parameter
+        (type_identifier)
+        (identifier)))
+    (type_identifier)))
+
+================================================================================
+Test and application blocks
+================================================================================
+
+test "soma" {
+  assert(1 + 1 == 2, "ok")
+}
+application {
+  onStart { println("start") }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (test_declaration
+    (identifier)
+    (string_literal
+      (string_fragment))
+    (block
+      (assert_statement
+        (binary_expression
+          (binary_expression
+            (integer_literal)
+            (integer_literal))
+          (integer_literal))
+        (string_literal
+          (string_fragment)))))
+  (application_declaration
+    (identifier)
+    (application_body
+      (lifecycle_block
+        (identifier)
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (argument_list
+                (string_literal
+                  (string_fragment))))))))))

@@ -1,0 +1,130 @@
+================================================================================
+Trailing lambda and spawn/await
+================================================================================
+
+main() {
+  list.forEach { x: Int -> println(x) }
+  spawn { println("bg") }
+  val r = spawn compute()
+  var v = await r
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (main_declaration
+    (identifier)
+    (formal_parameters)
+    (block
+      (expression_statement
+        (call_expression
+          (field_access
+            (identifier)
+            (identifier))
+          (lambda_expression
+            (lambda_parameters
+              (lambda_parameter
+                (identifier)
+                (type_identifier)))
+            (expression_statement
+              (call_expression
+                (identifier)
+                (argument_list
+                  (identifier)))))))
+      (expression_statement
+        (spawn_expression
+          (lambda_expression
+            (expression_statement
+              (call_expression
+                (identifier)
+                (argument_list
+                  (string_literal
+                    (string_fragment))))))))
+      (variable_declaration
+        (identifier)
+        (spawn_expression
+          (call_expression
+            (identifier)
+            (argument_list))))
+      (variable_declaration
+        (identifier)
+        (await_expression
+          (identifier))))))
+
+================================================================================
+Switch expression with patterns
+================================================================================
+
+main() {
+  var d = switch (o) {
+    case String s -> "str:" + s
+    case Point(var x, var y) -> x + "," + y
+    default -> "outro"
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (main_declaration
+    (identifier)
+    (formal_parameters)
+    (block
+      (variable_declaration
+        (identifier)
+        (switch_expression
+          (parenthesized_expression
+            (identifier))
+          (switch_block
+            (switch_arm
+              (type_pattern
+                (type_identifier)
+                (identifier))
+              (binary_expression
+                (string_literal
+                  (string_fragment))
+                (identifier)))
+            (switch_arm
+              (record_pattern
+                (type_identifier)
+                (pattern_binding
+                  (identifier))
+                (pattern_binding
+                  (identifier)))
+              (binary_expression
+                (binary_expression
+                  (identifier)
+                  (string_literal
+                    (string_fragment)))
+                (identifier)))
+            (switch_default_arm
+              (string_literal
+                (string_fragment)))))))))
+
+================================================================================
+Return value only on the same line
+================================================================================
+
+main() {
+  if (x < 0) return
+  println(x)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (main_declaration
+    (identifier)
+    (formal_parameters)
+    (block
+      (if_statement
+        (parenthesized_expression
+          (binary_expression
+            (identifier)
+            (integer_literal)))
+        (return_statement))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (identifier)))))))
