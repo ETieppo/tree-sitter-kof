@@ -41,6 +41,9 @@ If you are looking for Kof support in Neovim, ensure tree-sitter first in your p
 then build and copy whith
 
 ```sh
+mkdir -p ~/.local/share/nvim/lazy/nvim-treesitter/runtime/queries/kof/
+mkdir -p ~/.local/share/nvim/site/parser/
+mkdir -p ~/.local/share/nvim/site/queries/kof/
 tree-sitter generate  
 tree-sitter build -o ~/.local/share/nvim/site/parser/kof.so 
 cp queries/* ~/.local/share/nvim/lazy/nvim-treesitter/runtime/queries/kof/
