@@ -46,7 +46,7 @@ mkdir -p ~/.local/share/nvim/site/parser/
 mkdir -p ~/.local/share/nvim/site/queries/kof/
 tree-sitter generate  
 tree-sitter build -o ~/.local/share/nvim/site/parser/kof.so 
-cp queries/* ~/.local/share/nvim/lazy/nvim-treesitter/runtime/queries/kof/
+cp queries/* ~/.local/share/nvim/lazy/nvim-treesitter/runtime/queries/kof
 ln -s ~/.local/share/nvim/lazy/nvim-treesitter/runtime/queries/kof ~/.local/share/nvim/site/queries/kof
 ```
 
