@@ -1,0 +1,17 @@
+src/parser.c linguist-generated
+src/grammar.json linguist-generated
+src/node-types.json linguist-generated
+src/tree_sitter/** linguist-generated
+
+bindings/** linguist-generated
+binding.gyp linguist-generated
+setup.py linguist-generated
+pyproject.toml linguist-generated
+Cargo.toml linguist-generated
+go.mod linguist-generated
+Package.swift linguist-generated
+pom.xml linguist-generated
+build.zig linguist-generated
+build.zig.zon linguist-generated
+CMakeLists.txt linguist-generated
+Makefile linguist-generated
